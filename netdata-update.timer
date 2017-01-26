@@ -1,0 +1,11 @@
+[Unit]
+Description=netdata update
+
+[Timer]
+# Every 6 hours.
+OnCalendar=0/6:00:00
+# Catch up when an invocation was missed.
+Persistent=true
+
+[Install]
+WantedBy=timers.target

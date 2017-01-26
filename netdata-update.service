@@ -1,0 +1,24 @@
+[Unit]
+Description=netdata update
+
+[Service]
+Type=oneshot
+
+# ExecStart= needs to be configured via systemctl edit netdata-update.service.
+# ExecStart=/usr/local/src/netdata/netdata-updater.sh
+
+# Wait for 30 seconds to allow netdata to start up after update and change its
+# config files in /etc/netdata.
+ExecStartPost=/usr/bin/sleep 30s
+# These will fail if there were no changes, hence they are prefixed with -.
+ExecStartPost=-/bin/git -C /etc/netdata \
+                        add \
+                        --all \
+                        -- .
+ExecStartPost=-/bin/git -C /etc/netdata \
+                        -c user.name='netdata update' \
+                        -c user.email=netdata-update@localhost \
+                        commit \
+                        --message 'netdata update' \
+                        --only \
+                        -- .
