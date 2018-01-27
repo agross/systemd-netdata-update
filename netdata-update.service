@@ -11,14 +11,14 @@ Type=oneshot
 # config files in /etc/netdata.
 ExecStartPost=/usr/bin/sleep 30s
 # These will fail if there were no changes, hence they are prefixed with -.
-ExecStartPost=-/bin/git -C /etc/netdata \
+ExecStartPost=-/bin/git -C /etc \
                         add \
                         --all \
-                        -- .
-ExecStartPost=-/bin/git -C /etc/netdata \
+                        -- .etckeeper netdata
+ExecStartPost=-/bin/git -C /etc \
                         -c user.name='netdata update' \
                         -c user.email=netdata-update@localhost \
                         commit \
                         --message 'netdata update' \
                         --only \
-                        -- .
+                        -- .etckeeper netdata
