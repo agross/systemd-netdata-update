@@ -17,7 +17,7 @@ ExecStartPost=-/bin/git -C /etc \
                         -- .etckeeper netdata
 ExecStartPost=-/bin/git -C /etc \
                         -c user.name='netdata update' \
-                        -c user.email=netdata-update@localhost \
+                        -c user.email='%u@%H' \
                         commit \
                         --message 'netdata update' \
                         --only \
